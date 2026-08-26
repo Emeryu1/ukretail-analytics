@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw data loaded by load_data.py
+    schema: raw
+    tables:
+      - name: online_retail
+        description: Online Retail II transactions, 2009-2011
