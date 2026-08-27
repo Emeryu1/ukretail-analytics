@@ -1,0 +1,32 @@
+name: dbt CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install dbt-duckdb duckdb pandas openpyxl
+
+      - name: Download dataset
+        run: |
+          mkdir -p data
+          curl -L -o data/online_retail_ii.zip https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip
+          cd data && unzip -o online_retail_ii.zip
+          ls -la
+
+      - name: Load data
+        run: python load_data.py
+
+      - name: dbt build
+        run: dbt build --project-dir retail_dbt --profiles-dir .github/ci_profiles
