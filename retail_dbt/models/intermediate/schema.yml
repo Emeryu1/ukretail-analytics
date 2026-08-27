@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: int_sales
+    description: Cleaned sales lines, cancellations and non-product codes removed
+    columns:
+      - name: line_revenue
+        data_tests:
+          - not_null
