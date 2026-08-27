@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_retail_transactions
+    description: Cleaned retail transactions with standardised names and a cancellation flag
+    columns:
+      - name: invoice_id
+        description: Invoice number, prefixed with C for cancellations
+        data_tests:
+          - not_null
+      - name: stock_code
+        description: Product code
+        data_tests:
+          - not_null
+      - name: quantity
+        description: Units per line, negative for cancellations and adjustments
+        data_tests:
+          - not_null
+      - name: invoiced_at
+        description: Invoice timestamp
+        data_tests:
+          - not_null
+      - name: country
+        description: Customer country
+        data_tests:
+          - not_null
